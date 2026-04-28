@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaime Luciano | System Architect</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <style>
+        :root {
+            --primary-blue: #0284c7;    
+            --text-main: #0f172a;       
+            --text-muted: #64748b;      
+            --card-bg: #ffffff;
+            --page-bg: #f8fafc;
+            --badge-bg: #f1f5f9;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            /* Elegant light tech pattern */
+            --bg-pattern: radial-gradient(circle at 50% 50%, rgba(2, 132, 199, 0.05) 0%, transparent 60%), 
+                          linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9));
+        }
+
+        [data-theme="dark"] {
+            --primary-blue: #38bdf8;    
+            --text-main: #f8fafc;       
+            --text-muted: #94a3b8;      
+            --card-bg: #1e293b;
+            --page-bg: #0b1120;
+            --badge-bg: #0f172a;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            /* Deep, sleek geometric tech background */
+            --bg-pattern: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.15) 0%, transparent 50%),
+                          linear-gradient(rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.95)),
+                          repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 15px);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+            background-color: var(--page-bg);
+            background-image: var(--bg-pattern);
+            background-attachment: fixed;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        /* * THEME TOGGLE * */
+        .theme-toggle {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            z-index: 100;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover { background: rgba(0,0,0,0.7); transform: scale(1.05); }
+        .theme-toggle svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* * EXTENDED HERO BANNER * */
+        .hero-banner {
+            height: 650px; /* Extended deep into the content */
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('Dna Nano Tech Wallpaper HD.jpg');
+            background-size: cover;
+            background-position: center 20%;
+            border-bottom: 4px solid var(--primary-blue);
+        }
+
+        /* * LAYOUT * */
+        .layout-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* * LEFT COLUMN (PROFILE) * */
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 0 30px 30px 30px;
+            margin-top: -450px; /* Anchors inside the extended banner */
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .profile-logo {
+            width: 160px;
+            height: 160px;
+            background-color: #000;
+            background-image: url('Microsoft_Cortana_transparent.svg.png');
+            background-size: 85%;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            border: 6px solid var(--card-bg);
+            margin: -80px auto 20px auto;
+        }
+
+        .profile-name { font-size: 2rem; font-weight: 700; margin: 0 0 10px 0; }
+        .profile-pronunciation { font-family: monospace; font-size: 0.75rem; color: var(--primary-blue); margin-bottom: 20px; display: block; line-height: 1.5; }
+        .profile-title { font-size: 1.1rem; font-weight: 600; color: var(--text-muted); margin-bottom: 25px; text-transform: uppercase; }
+
+        .contact-info { text-align: left; font-size: 0.95rem; border-top: 1px solid var(--border-color); padding-top: 20px; color: var(--text-muted); }
+        .contact-info a { color: var(--primary-blue); text-decoration: none; font-weight: 500; }
+
+        /* * RIGHT COLUMN (CONTENT) * */
+        .content-column {
+            margin-top: -300px; /* Pulls content over the banner */
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        h2.section-title { font-size: 1.5rem; font-weight: 700; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-top: 0; margin-bottom: 25px; display: flex; align-items: center; }
+        h2.section-title::before { content: ""; display: inline-block; width: 8px; height: 24px; background: var(--primary-blue); margin-right: 12px; border-radius: 2px; }
+        h3 { font-size: 1.2rem; margin-top: 30px; margin-bottom: 15px; }
+
+        /* * CATEGORIZED SKILLS WITH LOGOS * */
+        .skill-category {
+            margin-bottom: 25px;
+        }
+        
+        .skill-category-title {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-badge {
+            background: var(--badge-bg);
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .skill-badge:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-blue);
+        }
+
+        .skill-badge i { font-size: 1.4rem; color: var(--primary-blue); }
+
+        ul.achievement-list { list-style-type: none; padding-left: 0; }
+        ul.achievement-list li { position: relative; padding-left: 25px; margin-bottom: 15px; color: var(--text-muted); font-size: 1.05rem; }
+        ul.achievement-list li::before { content: "▹"; position: absolute; left: 0; color: var(--primary-blue); font-size: 1.2rem; font-weight: bold; top: -2px; }
+
+        @media (max-width: 900px) {
+            .layout-container { grid-template-columns: 1fr; }
+            .content-column { margin-top: 0; }
+            .profile-card { margin-top: -120px; }
+            .hero-banner { height: 350px; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <button class="theme-toggle" id="theme-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM6.166 18.894a.75.75 0 001.06 1.06l1.591-1.59a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 5.106a.75.75 0 00-1.06 1.06l1.59 1.591a.75.75 0 101.061-1.06l-1.59-1.591z" /></svg>
+    </button>
+
+    <div class="hero-banner"></div>
+
+    <div class="layout-container">
+        
+        <aside>
+            <div class="profile-card">
+                <div class="profile-logo"></div>
+                <h1 class="profile-name">Jaime Luciano</h1>
+                <span class="profile-pronunciation">
+                    /ˈxaime luˈsjano/ (ES) &nbsp;|&nbsp; /ˈhaɪmeɪ ˌluːsiˈɑːnoʊ/ (EN)<br>
+                    /ˈdʒajme luˈtʃano/ (IT) &nbsp;|&nbsp; /ˈʒajmi luˈsjɐnu/ (PT)
+                </span>
+                <div class="profile-title">System Architect</div>
+                
+                <div class="contact-info">
+                    <p><strong>Location:</strong> DMV Area (Northern VA)</p>
+                    <p><strong>Email:</strong> <a href="mailto:Jaime.luciano@icloud.com">Jaime.luciano@icloud.com</a></p>
+                    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jaime-luciano-71113b86/" target="_blank">View Profile</a></p>
+                    <p><strong>Clearance:</strong> Available upon request</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-column">
+            
+            <div class="content-card">
+                <h2 class="section-title">Executive Profile</h2>
+                <p style="color: var(--text-muted); font-size: 1.05rem; text-align: justify;">
+                    Blending the precision of an engineer with the vision of an artist, my approach to cloud architecture is rooted in craftsmanship. Whether designing intricate Hub-and-Spoke multi-cloud networks or optimizing enterprise infrastructure, perfection lies in the smallest details. Beyond the terminal, a deep passion for art, music, and design heavily influences my technical work, ensuring every solution is not just functional, but elegant. A fearless pursuit of the extraordinary drives everything I do—a mindset forged through extreme sports like paragliding, snowboarding, and completing the IRONMAN triathlon. I build robust, futuristic, and versatile infrastructures with the exact same endurance, discipline, and lack of fear.
+                </p>
+
+                <h3>My Methodology</h3>
+                <ul class="achievement-list">
+                    <li><strong>Infrastructure as Code (IaC):</strong> Eliminating human error and ensuring complete auditability by translating complex environments into modular, reusable code.</li>
+                    <li><strong>Zero-Trust & NIST Alignment:</strong> Operating under the assumption of breach. I design environments utilizing strict microsegmentation and Entra ID unified governance.</li>
+                    <li><strong>FinOps Accountability:</strong> Architecture is only successful if it is financially viable. I leverage advanced telemetry to eliminate waste and optimize cloud intelligence.</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h2 class="section-title">Core Competencies & Technology Stack</h2>
+                
+                <div class="skill-category">
+                    <div class="skill-category-title">Cloud Platforms</div>
+                    <div class="skills-grid">
+                        <div class="skill-badge"><i class="devicon-amazonwebservices-original"></i> AWS (SAP/ANS)</div>
+                        <div class="skill-badge"><i class="devicon-azure-plain"></i> Microsoft Azure</div>
+                        <div class="skill-badge"><i class="devicon-vmware-plain"></i> VMware VMC</div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Languages & Technologies</div>
+                    <div class="skills-grid">
+                        <div class="skill-badge"><i class="devicon-terraform-plain"></i> Terraform</div>
+                        <div class="skill-badge"><i class="devicon-python-plain"></i> Python</div>
+                        <div class="skill-badge"><i class="devicon-bash-plain"></i> Shell / KQL</div>
+                        <div class="skill-badge"><i class="devicon-docker-plain"></i> Docker</div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Architectures & Services</div>
+                    <div class="skills-grid">
+                        <div class="skill-badge"><i class="devicon-networkx-plain"></i> Hub-and-Spoke</div>
+                        <div class="skill-badge"><i class="devicon-amazonwebservices-original"></i> Direct Connect</div>
+                        <div class="skill-badge"><i class="devicon-azure-plain"></i> ExpressRoute</div>
+                        <div class="skill-badge"><i class="devicon-github-original"></i> CI/CD Pipelines</div>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('site-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        themeToggleBtn.addEventListener('click', () => {
+            let currentTheme = document.documentElement.getAttribute('data-theme');
+            let targetTheme = currentTheme === "light" ? "dark" : "light";
+            document.documentElement.setAttribute('data-theme', targetTheme);
+            localStorage.setItem('site-theme', targetTheme);
+        });
+    </script>
+</body>
+</html>
