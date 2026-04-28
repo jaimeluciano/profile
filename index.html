@@ -8,20 +8,24 @@
     <style>
         :root {
             --primary-blue: #0284c7;    
-            --text-main: #f8fafc;       
-            --text-muted: #94a3b8;      
-            --card-bg: rgba(15, 23, 42, 0.85); /* Glassmorphism dark */
-            --badge-bg: rgba(255, 255, 255, 0.05);
-            --border-color: rgba(255, 255, 255, 0.1);
+            --text-main: #0f172a;       
+            --text-muted: #64748b;      
+            --card-bg: #ffffff;
+            --badge-bg: #f1f5f9;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --bg-overlay: rgba(248, 250, 252, 0.85); 
         }
 
-        [data-theme="light"] {
-            --primary-blue: #0284c7;    
-            --text-main: #0f172a;       
-            --text-muted: #475569;      
-            --card-bg: rgba(255, 255, 255, 0.95); /* Glassmorphism light */
-            --badge-bg: #f1f5f9;
-            --border-color: rgba(0, 0, 0, 0.1);
+        [data-theme="dark"] {
+            --primary-blue: #38bdf8;    
+            --text-main: #f8fafc;       
+            --text-muted: #94a3b8;      
+            --card-bg: #1e293b;
+            --badge-bg: #0f172a;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            --bg-overlay: rgba(15, 23, 42, 0.90); 
         }
 
         body {
@@ -29,151 +33,213 @@
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-main);
-            /* Using the requested background file */
-            background-image: url('0008069a050ade9ecf214d6ddd18021d.jpg');
+            /* Tech background with adaptive overlay */
+            background-image: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('0008069a050ade9ecf214d6ddd18021d.jpg');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
             line-height: 1.6;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, background-image 0.3s ease;
         }
 
+        /* THEME TOGGLE */
         .theme-toggle {
-            position: fixed;
+            position: absolute;
             top: 25px;
             right: 30px;
             z-index: 100;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
             border-radius: 50%;
             width: 44px;
             height: 44px;
             cursor: pointer;
             backdrop-filter: blur(8px);
-            transition: transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
-        .theme-toggle:hover { transform: scale(1.1); }
+        .theme-toggle:hover { transform: scale(1.05); background: rgba(0,0,0,0.7); }
         .theme-toggle svg { width: 20px; height: 20px; fill: currentColor; }
 
+        /* HERO BANNER */
+        .hero-banner {
+            height: 400px;
+            background-image: url('Dna Nano Tech Wallpaper HD.jpg');
+            background-size: cover;
+            background-position: center 20%;
+            border-bottom: 4px solid var(--primary-blue);
+        }
+
+        /* LAYOUT */
         .layout-container {
-            max-width: 1200px;
-            margin: 80px auto;
+            max-width: 1250px;
+            margin: 0 auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: 350px 1fr;
+            grid-template-columns: 320px 1fr;
             gap: 30px;
+            position: relative;
+            z-index: 10;
         }
 
-        .glass-card {
+        /* LEFT PROFILE CARD */
+        .profile-card {
             background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 0 30px 30px 30px;
+            margin-top: -150px; /* Pulls up into banner */
             border: 1px solid var(--border-color);
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            transition: background 0.3s ease, border 0.3s ease;
+            text-align: center;
+            transition: background 0.3s ease;
         }
 
-        /* FIXED LOGO STYLING */
         .profile-logo {
-            width: 150px;
-            height: 150px;
-            background-color: rgba(255,255,255,0.9); /* Replaced black with soft white glow */
+            width: 160px;
+            height: 160px;
+            background-color: transparent; /* Fixed the black background issue */
             background-image: url('Microsoft_Cortana_transparent.svg.png');
-            background-size: 80%;
+            background-size: 85%;
             background-position: center;
             background-repeat: no-repeat;
             border-radius: 50%;
-            margin: 0 auto 25px auto;
-            box-shadow: 0 0 25px rgba(2, 132, 199, 0.4);
-            border: 2px solid var(--primary-blue);
+            border: 6px solid var(--card-bg);
+            margin: -80px auto 20px auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .profile-name { font-size: 2.2rem; font-weight: 700; margin: 0 0 5px 0; text-align: center; }
-        .profile-pronunciation { font-family: monospace; font-size: 0.8rem; color: var(--primary-blue); display: block; text-align: center; margin-bottom: 20px; }
-        .contact-info { border-top: 1px solid var(--border-color); padding-top: 20px; margin-top: 20px; font-size: 0.95rem; }
-        .contact-info a { color: var(--primary-blue); text-decoration: none; }
+        .profile-name { font-size: 2rem; font-weight: 700; margin: 0 0 5px 0; }
+        .profile-pronunciation { font-family: monospace; font-size: 0.75rem; color: var(--primary-blue); margin-bottom: 15px; display: block; }
+        .profile-title { font-size: 1.1rem; font-weight: 600; color: var(--text-muted); margin-bottom: 25px; text-transform: uppercase; }
 
-        h2 { font-size: 1.6rem; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-top: 0; color: var(--primary-blue); }
-        
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
+        .contact-info { text-align: left; font-size: 0.95rem; border-top: 1px solid var(--border-color); padding-top: 20px; color: var(--text-muted); }
+        .contact-info a { color: var(--primary-blue); text-decoration: none; font-weight: 500; }
 
-        .skill-badge {
-            background: var(--badge-bg);
+        /* RIGHT CONTENT CARDS */
+        .content-column { margin-top: -100px; }
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 40px;
+            margin-bottom: 30px;
             border: 1px solid var(--border-color);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            transition: background 0.3s ease;
         }
-        .skill-badge i { font-size: 1.2rem; color: var(--primary-blue); }
+
+        h2.section-title { font-size: 1.5rem; font-weight: 700; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-top: 0; margin-bottom: 25px; display: flex; align-items: center; }
+        h2.section-title::before { content: ""; display: inline-block; width: 8px; height: 24px; background: var(--primary-blue); margin-right: 12px; border-radius: 2px; }
+
+        ul.achievement-list { list-style-type: none; padding-left: 0; }
+        ul.achievement-list li { position: relative; padding-left: 25px; margin-bottom: 15px; color: var(--text-muted); font-size: 1.05rem; }
+        ul.achievement-list li::before { content: "▹"; position: absolute; left: 0; color: var(--primary-blue); font-size: 1.2rem; font-weight: bold; top: -2px; }
+
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+        .skill-badge {
+            background: var(--badge-bg); border: 1px solid var(--border-color); color: var(--text-main);
+            padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-align: center;
+        }
 
         @media (max-width: 900px) {
-            .layout-container { grid-template-columns: 1fr; margin-top: 40px; }
+            .layout-container { grid-template-columns: 1fr; }
+            .content-column { margin-top: 0; }
+            .profile-card { margin-top: -80px; }
         }
     </style>
 </head>
 <body data-theme="dark">
 
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM6.166 18.894a.75.75 0 001.06 1.06l1.591-1.59a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 5.106a.75.75 0 00-1.06 1.06l1.59 1.591a.75.75 0 101.061-1.06l-1.59-1.591z"/></svg>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM6.166 18.894a.75.75 0 001.06 1.06l1.591-1.59a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 5.106a.75.75 0 00-1.06 1.06l1.59 1.591a.75.75 0 101.061-1.06l-1.59-1.591z" /></svg>
     </button>
+
+    <div class="hero-banner"></div>
 
     <div class="layout-container">
         
-        <aside class="glass-card">
-            <div class="profile-logo"></div>
-            <h1 class="profile-name">Jaime Luciano</h1>
-            <span class="profile-pronunciation">
-                /ˈxaime luˈsjano/ (ES) | /ˈhaɪmeɪ ˌluːsiˈɑːnoʊ/ (EN)<br>
-                /ˈdʒajme luˈtʃano/ (IT) | /ˈʒajmi luˈsjɐnu/ (PT)
-            </span>
-            <p style="text-align: center; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Multi-Cloud Architect</p>
-            
-            <div class="contact-info">
-                <p><strong>Location:</strong> DMV Area</p>
-                <p><strong>Email:</strong> <a href="mailto:Jaime.luciano@icloud.com">Jaime.luciano@icloud.com</a></p>
-                <p><strong>Clearance:</strong> Available upon request</p>
+        <aside>
+            <div class="profile-card">
+                <div class="profile-logo"></div>
+                
+                <h1 class="profile-name">Jaime Luciano</h1>
+                <span class="profile-pronunciation">
+                    /ˈxaime luˈsjano/ (ES) <br>
+                    /ˈhaɪmeɪ ˌluːsiˈɑːnoʊ/ (EN)<br>
+                    /ˈdʒajme luˈtʃano/ (IT) <br>
+                    /ˈʒajmi luˈsjɐnu/ (PT)
+                </span>
+                
+                <div class="profile-title">System Architect</div>
+                
+                <div class="skills-grid" style="margin-bottom: 25px;">
+                    <div class="skill-badge">AWS SAP-C02</div>
+                    <div class="skill-badge">AWS ANS-C01</div>
+                    <div class="skill-badge">FinOps Pro</div>
+                    <div class="skill-badge">VMware VCP-DCV</div>
+                </div>
+
+                <div class="contact-info">
+                    <p><strong>Location:</strong> DMV Area</p>
+                    <p><strong>Email:</strong> <a href="mailto:Jaime.luciano@icloud.com">Jaime.luciano@icloud.com</a></p>
+                    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jaime-luciano-71113b86/" target="_blank">View Profile</a></p>
+                    <p><strong>Clearance:</strong> Available upon request</p>
+                    <p><strong>Endurance:</strong> IRONMAN Finisher</p>
+                </div>
             </div>
         </aside>
 
-        <main>
-            <div class="glass-card" style="margin-bottom: 30px;">
-                <h2>Executive Profile</h2>
-                <p style="color: var(--text-muted); text-align: justify;">
-                    Blending the precision of an engineer with the vision of an artist, my approach to cloud architecture is rooted in craftsmanship. Whether designing intricate Hub-and-Spoke multi-cloud networks or optimizing enterprise infrastructure, perfection lies in the smallest details. A fearless pursuit of the extraordinary drives everything I do—a mindset forged through completing the IRONMAN triathlon. I build robust, futuristic infrastructures with that exact same endurance and discipline.
+        <main class="content-column">
+            
+            <div class="content-card">
+                <h2 class="section-title">Executive Profile</h2>
+                <p style="color: var(--text-muted); font-size: 1.05rem; text-align: justify; line-height: 1.8;">
+                    Blending the precision of an engineer with the vision of an artist, my approach to cloud architecture is rooted in craftsmanship. Whether designing intricate Hub-and-Spoke multi-cloud networks or optimizing enterprise infrastructure, perfection lies in the smallest details. Beyond the terminal, a deep passion for art, music, and design heavily influences my technical work, ensuring every solution is not just functional, but elegant. A fearless pursuit of the extraordinary drives everything I do—a mindset forged through extreme sports like paragliding, snowboarding, and completing the IRONMAN triathlon. I build robust, futuristic, and versatile infrastructures with the exact same endurance, discipline, and lack of fear.
                 </p>
             </div>
 
-            <div class="glass-card">
-                <h2>Technical Ecosystem</h2>
+            <div class="content-card">
+                <h2 class="section-title">Architectural Highlights</h2>
+                <ul class="achievement-list">
+                    <li>Architected 10Gb AWS Direct Connect circuits for multi-account landing zones, ensuring strict alignment with the AWS Well‑Architected Framework.</li>
+                    <li>Designed Azure hub-and-spoke topologies featuring VNet peering, custom routing, and UDRs for ExpressRoute subscribers.</li>
+                    <li>Championed NetDevOps adoption by authoring advanced CloudFormation templates, Terraform modules, and ARM/Bicep deployments.</li>
+                    <li>Architected comprehensive cross-cloud IAM utilizing Entra ID, Azure RBAC, and AWS IAM Identity Center under a unified governance model.</li>
+                    <li>Developed FinOps intelligence dashboards utilizing advanced KQL and Log Analytics to eliminate cloud waste.</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h2 class="section-title">Core Competencies</h2>
                 <div class="skills-grid">
-                    <div class="skill-badge"><i class="devicon-amazonwebservices-original"></i> AWS Direct Connect</div>
-                    <div class="skill-badge"><i class="devicon-azure-plain"></i> Azure ExpressRoute</div>
-                    <div class="skill-badge"><i class="devicon-terraform-plain"></i> Terraform / IaC</div>
-                    <div class="skill-badge"><i class="devicon-docker-plain"></i> Docker & NSX-T</div>
-                    <div class="skill-badge"><i class="devicon-bash-plain"></i> KQL Analytics</div>
-                    <div class="skill-badge"><i class="devicon-networkx-plain"></i> Hub-and-Spoke</div>
+                    <div class="skill-badge">AWS Direct Connect</div>
+                    <div class="skill-badge">Azure ExpressRoute</div>
+                    <div class="skill-badge">Hub-and-Spoke</div>
+                    <div class="skill-badge">Transit Gateway</div>
+                    <div class="skill-badge">Terraform & Bicep</div>
+                    <div class="skill-badge">NetDevOps</div>
+                    <div class="skill-badge">Entra ID / IAM</div>
+                    <div class="skill-badge">Zero-Trust Security</div>
+                    <div class="skill-badge">KQL Analytics</div>
+                    <div class="skill-badge">VMware NSX-T</div>
                 </div>
             </div>
+
         </main>
     </div>
 
     <script>
-        const btn = document.getElementById('theme-toggle');
-        btn.addEventListener('click', () => {
-            const current = document.body.getAttribute('data-theme');
-            document.body.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('site-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        themeToggleBtn.addEventListener('click', () => {
+            let currentTheme = document.documentElement.getAttribute('data-theme');
+            let targetTheme = currentTheme === "light" ? "dark" : "light";
+            document.documentElement.setAttribute('data-theme', targetTheme);
+            localStorage.setItem('site-theme', targetTheme);
         });
     </script>
 </body>
